@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Vehicle Service Appointment | GearShift</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar">
+        <div class="container-fluid nav-container">
+            <a href="index.html" class="brand-logo">
+                <div class="logo-icon">⚙️</div>
+                <div>Gear<span class="accent">Shift</span></div>
+            </a>
+            <div class="nav-actions">
+                <span class="badge" style="background:rgba(255,255,255,0.1); color:#ffffff; font-size:0.85rem;">Customer Portal</span>
+                <button type="button" class="btn btn-outline btn-sm" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-profile">
+                <div class="profile-avatar">U</div>
+                <div class="profile-info">
+                    <h4 class="current-user-name">Loading...</h4>
+                    <span class="current-user-email">customer@gearshift.com</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li><a href="dashboard.html"><span class="nav-icon">📊</span> Dashboard</a></li>
+                <li><a href="vehicles.html"><span class="nav-icon">🚗</span> My Vehicles</a></li>
+                <li><a href="booking.html" class="active"><span class="nav-icon">⚡</span> Book Service</a></li>
+                <li><a href="my-bookings.html"><span class="nav-icon">📅</span> My Bookings</a></li>
+                <li><a href="services.html"><span class="nav-icon">🛠️</span> Explore Services</a></li>
+                <li><a href="index.html"><span class="nav-icon">🏠</span> Back to Home</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button type="button" class="btn btn-outline btn-sm btn-block" style="color:#f87171; border-color:#ef4444;" onclick="handleLogout()">
+                    🚪 Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="dashboard-topbar">
+                <div class="dashboard-welcome">
+                    <h2>Schedule Service Appointment</h2>
+                    <p>Select your vehicle, pick a tailored service package, and reserve your preferred bay slot.</p>
+                </div>
+            </div>
+
+            <!-- No Vehicle Warning Banner -->
+            <div id="no-vehicle-alert" style="display:none; background:#fff7ed; border-left:4px solid #f97316; padding:1.25rem; border-radius:0.5rem; margin-bottom:1.75rem; border:1px solid #ffedd5;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                    <div>
+                        <h4 style="color:#c2410c; margin:0 0 0.25rem 0;">⚠️ No Vehicles Found in Your Profile</h4>
+                        <p style="margin:0; font-size:0.9rem; color:#9a3412;">You must add at least one vehicle before scheduling a service appointment.</p>
+                    </div>
+                    <a href="vehicles.html" class="btn btn-accent btn-sm">+ Add Your Vehicle Now</a>
+                </div>
+            </div>
+
+            <!-- Booking Two-Column Grid -->
+            <div style="display:grid; grid-template-columns:1.35fr 0.85fr; gap:2rem; align-items:start;">
+                <!-- Booking Form Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="margin:0; font-size:1.15rem;">Appointment Details</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="booking-form" onsubmit="handleBookingSubmit(event)">
+                            <!-- 1. Select Vehicle -->
+                            <div class="form-group">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                                    <label class="form-label" for="booking-vehicle" style="margin:0;">Select Vehicle <span class="required">*</span></label>
+                                    <a href="vehicles.html" style="font-size:0.8rem; font-weight:600;">+ Register New Vehicle</a>
+                                </div>
+                                <select id="booking-vehicle" name="vehicle_id" class="form-control" required onchange="updateBookingSummary()">
+                                    <option value="">Loading vehicles...</option>
+                                </select>
+                            </div>
+
+                            <!-- 2. Select Service Package -->
+                            <div class="form-group">
+                                <label class="form-label" for="booking-service">Service Package <span class="required">*</span></label>
+                                <select id="booking-service" name="service_id" class="form-control" required onchange="updateBookingSummary()">
+                                    <option value="">Loading services catalog...</option>
+                                </select>
+                            </div>
+
+                            <!-- 3. Date & Time -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="booking-date">Preferred Date <span class="required">*</span></label>
+                                    <input type="date" id="booking-date" name="booking_date" class="form-control" required onchange="updateBookingSummary()">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="booking-time">Preferred Time Slot <span class="required">*</span></label>
+                                    <select id="booking-time" name="booking_time" class="form-control" required onchange="updateBookingSummary()">
+                                        <option value="09:00 AM">09:00 AM (Morning Slot)</option>
+                                        <option value="10:30 AM">10:30 AM (Morning Slot)</option>
+                                        <option value="12:00 PM">12:00 PM (Noon Slot)</option>
+                                        <option value="02:00 PM" selected>02:00 PM (Afternoon Slot)</option>
+                                        <option value="03:30 PM">03:30 PM (Afternoon Slot)</option>
+                                        <option value="05:00 PM">05:00 PM (Evening Slot)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- 4. Notes / Symptoms -->
+                            <div class="form-group">
+                                <label class="form-label" for="booking-notes">Special Instructions / Specific Issues (Optional)</label>
+                                <textarea id="booking-notes" name="notes" class="form-control" placeholder="Describe any specific noises, symptoms, recent road trips, or maintenance preferences..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-accent btn-block btn-lg" id="booking-submit-btn">
+                                ⚡ Confirm Service Appointment
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Live Summary Order Card -->
+                <div class="card" style="border-top:4px solid var(--brand-blue);">
+                    <div class="card-header">
+                        <h3 style="margin:0; font-size:1.15rem;">Live Booking Summary</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="display:flex; flex-direction:column; gap:1rem; font-size:0.92rem;">
+                            <div style="display:flex; justify-content:space-between; padding-bottom:0.75rem; border-bottom:1px solid #e2e8f0;">
+                                <span style="color:var(--text-muted);">Vehicle:</span>
+                                <strong id="summary-vehicle" style="text-align:right;">None selected</strong>
+                            </div>
+
+                            <div style="display:flex; justify-content:space-between; padding-bottom:0.75rem; border-bottom:1px solid #e2e8f0;">
+                                <span style="color:var(--text-muted);">Service:</span>
+                                <strong id="summary-service" style="text-align:right;">None selected</strong>
+                            </div>
+
+                            <div style="display:flex; justify-content:space-between; padding-bottom:0.75rem; border-bottom:1px solid #e2e8f0;">
+                                <span style="color:var(--text-muted);">Est. Duration:</span>
+                                <span id="summary-duration" class="badge" style="background:#e0f2fe; color:#0369a1;">--</span>
+                            </div>
+
+                            <div style="display:flex; justify-content:space-between; padding-bottom:0.75rem; border-bottom:1px solid #e2e8f0;">
+                                <span style="color:var(--text-muted);">Appointment Date:</span>
+                                <strong id="summary-date">Today</strong>
+                            </div>
+
+                            <div style="display:flex; justify-content:space-between; padding-bottom:0.75rem; border-bottom:1px solid #e2e8f0;">
+                                <span style="color:var(--text-muted);">Time Slot:</span>
+                                <strong id="summary-time">02:00 PM</strong>
+                            </div>
+
+                            <div style="background:#f8fafc; padding:1.25rem; border-radius:0.5rem; border:1px solid #e2e8f0; margin-top:0.5rem;">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span style="font-weight:700; color:var(--primary); font-size:1rem;">Estimated Total:</span>
+                                    <span id="summary-price" style="font-size:1.6rem; font-weight:800; color:var(--brand-blue);">$0.00</span>
+                                </div>
+                                <div style="font-size:0.78rem; color:var(--text-light); margin-top:0.35rem;">
+                                    * Taxes and environmental disposal fees included. Final invoice provided upon vehicle inspection.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/booking.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initBookingPage();
+        });
+    </script>
+</body>
+</html>

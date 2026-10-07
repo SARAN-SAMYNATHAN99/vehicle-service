@@ -1,0 +1,409 @@
+/* ========================================================
+   DASHBOARD & ADMIN PORTAL STYLES
+   Customer Portal & Admin Management Center
+   ======================================================== */
+
+.dashboard-layout {
+    display: flex;
+    min-height: calc(100vh - 72px);
+    background: #f1f5f9;
+}
+
+/* Sidebar */
+.dashboard-sidebar {
+    width: 260px;
+    background: #0f172a;
+    color: #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    border-right: 1px solid #1e293b;
+    transition: all var(--transition-base);
+}
+
+.sidebar-profile {
+    padding: 1.75rem 1.25rem;
+    border-bottom: 1px solid #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.profile-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--brand-blue) 0%, #3b82f6 100%);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.profile-avatar.admin-avatar {
+    background: linear-gradient(135deg, var(--accent) 0%, #ea580c 100%);
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+}
+
+.profile-info h4 {
+    color: #ffffff;
+    font-size: 0.95rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+}
+
+.profile-info span {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    display: block;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 1.25rem 0.75rem;
+    flex-grow: 1;
+}
+
+.sidebar-nav li {
+    margin-bottom: 0.35rem;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.7rem 0.9rem;
+    color: #94a3b8;
+    border-radius: var(--radius-md);
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.sidebar-nav a:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-nav a.active {
+    color: #ffffff;
+    background: var(--brand-blue);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.sidebar-nav.admin-nav a.active {
+    background: var(--accent);
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.sidebar-nav .nav-icon {
+    font-size: 1.15rem;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-footer {
+    padding: 1.25rem;
+    border-top: 1px solid #1e293b;
+}
+
+/* Main Content Area */
+.dashboard-main {
+    flex-grow: 1;
+    padding: 2rem 2.25rem;
+    overflow-y: auto;
+}
+
+.dashboard-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.dashboard-welcome h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.dashboard-welcome p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Stats Cards Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast);
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-card-info h3 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin-bottom: 0.2rem;
+    color: var(--primary);
+}
+
+.stat-card-info p {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+.stat-icon-blue   { background: #eff6ff; color: var(--brand-blue); }
+.stat-icon-amber  { background: #fffbeb; color: var(--warning); }
+.stat-icon-green  { background: #f0fdf4; color: var(--success); }
+.stat-icon-purple { background: #faf5ff; color: #9333ea; }
+.stat-icon-red    { background: #fef2f2; color: var(--danger); }
+.stat-icon-orange { background: #fff7ed; color: var(--accent); }
+
+/* Vehicle Cards Grid */
+.vehicles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 1.5rem;
+}
+
+.vehicle-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+}
+
+.vehicle-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #cbd5e1;
+}
+
+.vehicle-card-header {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vehicle-plate {
+    background: #ffffff;
+    color: #0f172a;
+    font-family: monospace;
+    font-weight: 800;
+    font-size: 0.95rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+    letter-spacing: 1px;
+    border: 1px solid #cbd5e1;
+}
+
+.vehicle-card-body {
+    padding: 1.35rem 1.5rem;
+}
+
+.vehicle-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+}
+
+.vehicle-specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.88rem;
+}
+
+.spec-item {
+    color: var(--text-muted);
+}
+
+.spec-item strong {
+    color: var(--primary);
+}
+
+.vehicle-card-footer {
+    padding: 0.85rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    background: #f8fafc;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+}
+
+/* Filter Bar */
+.filter-bar {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.search-input-box {
+    position: relative;
+    min-width: 260px;
+}
+
+.search-input-box input {
+    padding-left: 2.25rem;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    pointer-events: none;
+}
+
+/* Booking Status Timeline */
+.status-timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 2rem 0;
+}
+
+.status-timeline::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 20px;
+    right: 20px;
+    height: 3px;
+    background: #e2e8f0;
+    z-index: 1;
+}
+
+.timeline-step {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    flex: 1;
+}
+
+.step-indicator {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid #cbd5e1;
+    margin: 0 auto 0.5rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.timeline-step.completed .step-indicator {
+    background: var(--success);
+    border-color: var(--success);
+    color: #ffffff;
+}
+
+.timeline-step.active .step-indicator {
+    background: var(--brand-blue);
+    border-color: var(--brand-blue);
+    color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+}
+
+.timeline-step.cancelled .step-indicator {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: #ffffff;
+}
+
+.step-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.timeline-step.active .step-label {
+    color: var(--brand-blue);
+}
+
+@media (max-width: 900px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+    .dashboard-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #1e293b;
+    }
+    .sidebar-nav {
+        display: flex;
+        overflow-x: auto;
+        padding: 0.5rem;
+    }
+    .sidebar-nav li {
+        margin-bottom: 0;
+        white-space: nowrap;
+    }
+    .dashboard-main {
+        padding: 1.5rem 1rem;
+    }
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Bookings & Dispatch | Admin GearShift</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar" style="background:#090d16;">
+        <div class="container-fluid nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon" style="background:linear-gradient(135deg, #f97316 0%, #ea580c 100%);">⚙️</div>
+                <div>Gear<span class="accent">Shift</span> <span style="font-size:0.75rem; background:#ea580c; color:#ffffff; padding:2px 8px; border-radius:99px; font-weight:700;">ADMIN</span></div>
+            </a>
+            <div class="nav-actions">
+                <a href="../index.html" class="btn btn-outline btn-sm">View Website</a>
+                <button type="button" class="btn btn-danger btn-sm" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-profile">
+                <div class="profile-avatar admin-avatar">A</div>
+                <div class="profile-info">
+                    <h4 class="admin-name-display">Administrator</h4>
+                    <span style="color:#f97316;">System Admin</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav admin-nav">
+                <li><a href="dashboard.html"><span class="nav-icon">📊</span> Overview</a></li>
+                <li><a href="bookings.html" class="active"><span class="nav-icon">📅</span> Bookings & Dispatch</a></li>
+                <li><a href="customers.html"><span class="nav-icon">👥</span> Customers & Fleet</a></li>
+                <li><a href="services.html"><span class="nav-icon">🛠️</span> Service Packages</a></li>
+                <li><a href="mechanics.html"><span class="nav-icon">👨‍🔧</span> Mechanics Team</a></li>
+                <li><a href="../setup.php"><span class="nav-icon">⚙️</span> Database Diagnostics</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button type="button" class="btn btn-outline btn-sm btn-block" style="color:#f87171; border-color:#ef4444;" onclick="handleLogout()">
+                    🚪 Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="dashboard-topbar">
+                <div class="dashboard-welcome">
+                    <h2>Bookings & Dispatch Center</h2>
+                    <p>Review customer service appointments, assign mechanics, and update stage statuses.</p>
+                </div>
+            </div>
+
+            <!-- Filter & Search Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="admin-booking-status-filter" style="font-size:0.88rem; font-weight:600; color:var(--text-muted);">Status Filter:</label>
+                    <select id="admin-booking-status-filter" class="form-control" style="width:auto; padding:0.45rem 0.85rem;" onchange="fetchAndRenderAdminBookings()">
+                        <option value="all">All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="In Service">In Service</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <div class="search-input-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="admin-booking-search" class="form-control" placeholder="Search customer, plate, ID..." oninput="fetchAndRenderAdminBookings()">
+                </div>
+            </div>
+
+            <!-- Bookings Master Table -->
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Customer</th>
+                                <th>Vehicle</th>
+                                <th>Service</th>
+                                <th>Date & Time</th>
+                                <th>Assign Mechanic</th>
+                                <th>Update Status</th>
+                                <th style="text-align:right;">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-bookings-tbody">
+                            <!-- Populated via admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Admin Booking Details Modal -->
+    <div id="admin-booking-details-modal" class="modal-backdrop">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-header">
+                <h3 class="modal-title">Comprehensive Booking Record</h3>
+                <button type="button" class="modal-close" onclick="closeModal('admin-booking-details-modal')">&times;</button>
+            </div>
+            <div class="modal-body" id="admin-booking-details-body">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" onclick="closeModal('admin-booking-details-modal')">Close Record</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const statusParam = urlParams.get('status');
+            if (statusParam) {
+                const select = document.getElementById('admin-booking-status-filter');
+                if (select) select.value = statusParam;
+            }
+            loadAdminBookings();
+        });
+    </script>
+</body>
+</html>

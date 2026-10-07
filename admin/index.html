@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal Login | GearShift</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body style="background: #0b1120;">
+
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon" style="background:linear-gradient(135deg, #f97316 0%, #ea580c 100%);">🔒</div>
+                <div>Gear<span class="accent">Shift</span> <span style="font-size:0.8rem; background:rgba(249,115,22,0.2); color:#fb923c; border:1px solid #f97316; padding:2px 8px; border-radius:99px; margin-left:5px;">Admin</span></div>
+            </a>
+            <div class="nav-actions">
+                <a href="../index.html" class="btn btn-outline btn-sm">&larr; Back to Website</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-wrapper">
+        <div class="auth-card" style="border-top: 4px solid var(--accent);">
+            <div class="auth-header" style="background:#0f172a;">
+                <h2>Admin Control Center</h2>
+                <p>Restricted access for system administrators & shop managers</p>
+            </div>
+
+            <div class="auth-body">
+                <!-- 1-Click Demo Quick Fill Button for Admin -->
+                <div style="background:#fff7ed; padding:0.85rem; border-radius:0.5rem; margin-bottom:1.5rem; border:1px solid #ffedd5;">
+                    <div style="font-size:0.8rem; font-weight:700; color:#c2410c; text-transform:uppercase; margin-bottom:0.4rem;">
+                        ⚡ 1-Click Default Admin Fill:
+                    </div>
+                    <button type="button" class="btn btn-outline-dark btn-sm btn-block" style="color:var(--accent); border-color:#fdba74;" onclick="fillAdminDemo()">
+                        Fill Default Admin (admin@gearshift.com / Admin@123)
+                    </button>
+                </div>
+
+                <form id="admin-login-form" onsubmit="handleAdminLoginForm(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="admin-email">Admin Email <span class="required">*</span></label>
+                        <input type="email" id="admin-email" name="email" class="form-control" placeholder="admin@gearshift.com" required autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="admin-password">Password <span class="required">*</span></label>
+                        <input type="password" id="admin-password" name="password" class="form-control" placeholder="Enter password" required autocomplete="current-password">
+                    </div>
+
+                    <button type="submit" class="btn btn-accent btn-block btn-lg" id="admin-login-btn" style="margin-top:1.5rem;">
+                        🔒 Authenticate as Admin
+                    </button>
+                </form>
+            </div>
+
+            <div class="auth-footer">
+                Are you a customer? <a href="../login.html" style="font-weight:600;">Customer Portal Login</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await checkAuthState();
+            if (user && user.role === 'admin') {
+                window.location.href = 'dashboard.html';
+            }
+        });
+
+        function fillAdminDemo() {
+            document.getElementById('admin-email').value = 'admin@gearshift.com';
+            document.getElementById('admin-password').value = 'Admin@123';
+        }
+
+        async function handleAdminLoginForm(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = document.getElementById('admin-login-btn');
+
+            const email = form.email.value.trim();
+            const password = form.password.value;
+
+            if (!email || !password) {
+                showToast('error', 'Validation Error', 'Enter both email and password.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> Authenticating...';
+
+            const response = await apiRequest('auth/login.php', 'POST', { email, password });
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '🔒 Authenticate as Admin';
+
+            if (response.success) {
+                if (response.data.user.role !== 'admin') {
+                    showToast('error', 'Access Denied', 'This account is not an administrator.');
+                    return;
+                }
+
+                showToast('success', 'Admin Access Granted', 'Redirecting to command center...');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 700);
+            } else {
+                showToast('error', 'Authentication Failed', response.message);
+            }
+        }
+    </script>
+</body>
+</html>

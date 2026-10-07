@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Directory & Fleet | Admin GearShift</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar" style="background:#090d16;">
+        <div class="container-fluid nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon" style="background:linear-gradient(135deg, #f97316 0%, #ea580c 100%);">⚙️</div>
+                <div>Gear<span class="accent">Shift</span> <span style="font-size:0.75rem; background:#ea580c; color:#ffffff; padding:2px 8px; border-radius:99px; font-weight:700;">ADMIN</span></div>
+            </a>
+            <div class="nav-actions">
+                <a href="../index.html" class="btn btn-outline btn-sm">View Website</a>
+                <button type="button" class="btn btn-danger btn-sm" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-profile">
+                <div class="profile-avatar admin-avatar">A</div>
+                <div class="profile-info">
+                    <h4 class="admin-name-display">Administrator</h4>
+                    <span style="color:#f97316;">System Admin</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav admin-nav">
+                <li><a href="dashboard.html"><span class="nav-icon">📊</span> Overview</a></li>
+                <li><a href="bookings.html"><span class="nav-icon">📅</span> Bookings & Dispatch</a></li>
+                <li><a href="customers.html" class="active"><span class="nav-icon">👥</span> Customers & Fleet</a></li>
+                <li><a href="services.html"><span class="nav-icon">🛠️</span> Service Packages</a></li>
+                <li><a href="mechanics.html"><span class="nav-icon">👨‍🔧</span> Mechanics Team</a></li>
+                <li><a href="../setup.php"><span class="nav-icon">⚙️</span> Database Diagnostics</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button type="button" class="btn btn-outline btn-sm btn-block" style="color:#f87171; border-color:#ef4444;" onclick="handleLogout()">
+                    🚪 Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="dashboard-topbar">
+                <div class="dashboard-welcome">
+                    <h2>Customer Directory & Fleet</h2>
+                    <p>Review customer accounts, examine vehicle garages, and audit lifetime service histories.</p>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="filter-bar">
+                <div class="search-input-box" style="flex:1;">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="customer-search-input" class="form-control" placeholder="Search customer by name, email, or phone number..." oninput="loadAdminCustomers()">
+                </div>
+            </div>
+
+            <!-- Customers Master Table -->
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Name</th>
+                                <th>Email Address</th>
+                                <th>Phone Number</th>
+                                <th>Vehicles Owned</th>
+                                <th>Total Bookings</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-customers-tbody">
+                            <!-- Populated via admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Customer Portfolio Modal -->
+    <div id="customer-details-modal" class="modal-backdrop">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-header">
+                <h3 class="modal-title">Customer Fleet & Service Portfolio</h3>
+                <button type="button" class="modal-close" onclick="closeModal('customer-details-modal')">&times;</button>
+            </div>
+            <div class="modal-body" id="customer-details-modal-body">
+                <!-- Dynamically populated via admin.js -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" onclick="closeModal('customer-details-modal')">Close Portfolio</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAdminCustomers();
+        });
+    </script>
+</body>
+</html>

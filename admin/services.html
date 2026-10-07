@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Services | Admin GearShift</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar" style="background:#090d16;">
+        <div class="container-fluid nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon" style="background:linear-gradient(135deg, #f97316 0%, #ea580c 100%);">⚙️</div>
+                <div>Gear<span class="accent">Shift</span> <span style="font-size:0.75rem; background:#ea580c; color:#ffffff; padding:2px 8px; border-radius:99px; font-weight:700;">ADMIN</span></div>
+            </a>
+            <div class="nav-actions">
+                <a href="../index.html" class="btn btn-outline btn-sm">View Website</a>
+                <button type="button" class="btn btn-danger btn-sm" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-profile">
+                <div class="profile-avatar admin-avatar">A</div>
+                <div class="profile-info">
+                    <h4 class="admin-name-display">Administrator</h4>
+                    <span style="color:#f97316;">System Admin</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav admin-nav">
+                <li><a href="dashboard.html"><span class="nav-icon">📊</span> Overview</a></li>
+                <li><a href="bookings.html"><span class="nav-icon">📅</span> Bookings & Dispatch</a></li>
+                <li><a href="customers.html"><span class="nav-icon">👥</span> Customers & Fleet</a></li>
+                <li><a href="services.html" class="active"><span class="nav-icon">🛠️</span> Service Packages</a></li>
+                <li><a href="mechanics.html"><span class="nav-icon">👨‍🔧</span> Mechanics Team</a></li>
+                <li><a href="../setup.php"><span class="nav-icon">⚙️</span> Database Diagnostics</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button type="button" class="btn btn-outline btn-sm btn-block" style="color:#f87171; border-color:#ef4444;" onclick="handleLogout()">
+                    🚪 Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="dashboard-topbar">
+                <div class="dashboard-welcome">
+                    <h2>Automotive Service Packages</h2>
+                    <p>Create, customize, and price automotive maintenance packages offered to customers.</p>
+                </div>
+                <button type="button" class="btn btn-accent btn-sm" onclick="openAdminAddServiceModal()">
+                    + Add New Service
+                </button>
+            </div>
+
+            <!-- Services Master Table -->
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Service ID</th>
+                                <th>Service Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Duration</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-services-tbody">
+                            <!-- Populated via admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add / Edit Service Modal -->
+    <div id="service-modal" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title" id="service-modal-title">Service Package</h3>
+                <button type="button" class="modal-close" onclick="closeModal('service-modal')">&times;</button>
+            </div>
+            <form id="service-modal-form" onsubmit="handleAdminServiceForm(event)">
+                <input type="hidden" name="id" value="">
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label" for="srv-name">Service Title <span class="required">*</span></label>
+                        <input type="text" id="srv-name" name="service_name" class="form-control" placeholder="e.g. Premium Synthetic Oil Change" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="srv-price">Price ($ USD) <span class="required">*</span></label>
+                            <input type="number" id="srv-price" name="price" class="form-control" placeholder="49.00" step="0.01" min="1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="srv-dur">Estimated Duration <span class="required">*</span></label>
+                            <input type="text" id="srv-dur" name="estimated_duration" class="form-control" placeholder="e.g. 1.5 Hours" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="srv-desc">Detailed Description <span class="required">*</span></label>
+                        <textarea id="srv-desc" name="description" class="form-control" placeholder="Describe inclusions, procedures, fluids, and inspection scope..." required rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" onclick="closeModal('service-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="srv-submit-btn">Save Package</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAdminServices();
+        });
+    </script>
+</body>
+</html>

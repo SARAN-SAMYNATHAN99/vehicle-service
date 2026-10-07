@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GearShift | Premium Automotive Care & Service Center</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo">
+                <div class="logo-icon">⚙️</div>
+                <div>Gear<span class="accent">Shift</span></div>
+            </a>
+
+            <button type="button" class="mobile-nav-toggle" aria-label="Toggle navigation">☰</button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="index.html" class="active">Home</a></li>
+                <li class="nav-item"><a href="services.html">Services</a></li>
+                <li class="nav-item"><a href="booking.html">Book Service</a></li>
+                <li class="nav-item"><a href="#why-us">Why Choose Us</a></li>
+                <li class="nav-item"><a href="#contact">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions" id="nav-actions">
+                <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+                <a href="register.html" class="btn btn-accent btn-sm">Register</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container hero-grid">
+            <div>
+                <div class="hero-badge">🏎️ Factory-Certified Precision Care</div>
+                <h1 class="hero-title">
+                    Master Automotive Care for <span class="highlight">Peak Performance</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Schedule hassle-free multi-point inspections, scheduled maintenance, and specialized repairs with certified mechanics. Track your vehicle service in real-time.
+                </p>
+                <div class="hero-cta">
+                    <a href="booking.html" class="btn btn-accent btn-lg">⚡ Book a Service Now</a>
+                    <a href="services.html" class="btn btn-outline btn-lg">Explore All Services</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h4>15,000+</h4>
+                        <p>Vehicles Serviced</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>4.9 / 5.0</h4>
+                        <p>Customer Rating</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>25+</h4>
+                        <p>Expert Technicians</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <div class="hero-card-header">
+                    <div class="pulse-dot"></div>
+                    <div>
+                        <h4 style="color:#ffffff; margin:0; font-size:1.05rem;">Quick Service Estimator</h4>
+                        <span style="color:#94a3b8; font-size:0.8rem;">Instant booking in 3 easy steps</span>
+                    </div>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:1rem;">
+                    <div style="background:rgba(15,23,42,0.6); padding:1rem; border-radius:0.5rem; border:1px solid rgba(255,255,255,0.08);">
+                        <span style="color:#f97316; font-size:0.8rem; font-weight:700; text-transform:uppercase;">STEP 1</span>
+                        <h4 style="color:#ffffff; margin:0.2rem 0; font-size:0.95rem;">Select Your Vehicle</h4>
+                        <p style="margin:0; font-size:0.82rem; color:#94a3b8;">Choose from your saved cars, bikes, or SUVs.</p>
+                    </div>
+                    <div style="background:rgba(15,23,42,0.6); padding:1rem; border-radius:0.5rem; border:1px solid rgba(255,255,255,0.08);">
+                        <span style="color:#3b82f6; font-size:0.8rem; font-weight:700; text-transform:uppercase;">STEP 2</span>
+                        <h4 style="color:#ffffff; margin:0.2rem 0; font-size:0.95rem;">Pick Service & Schedule</h4>
+                        <p style="margin:0; font-size:0.82rem; color:#94a3b8;">Transparent fixed pricing with exact duration estimates.</p>
+                    </div>
+                    <div style="background:rgba(15,23,42,0.6); padding:1rem; border-radius:0.5rem; border:1px solid rgba(255,255,255,0.08);">
+                        <span style="color:#22c55e; font-size:0.8rem; font-weight:700; text-transform:uppercase;">STEP 3</span>
+                        <h4 style="color:#ffffff; margin:0.2rem 0; font-size:0.95rem;">Live Progress Tracking</h4>
+                        <p style="margin:0; font-size:0.82rem; color:#94a3b8;">Assigned master technician and live status updates.</p>
+                    </div>
+                    <a href="booking.html" class="btn btn-primary btn-block">Schedule Your Appointment &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section style="padding: 5rem 0; background: #ffffff;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Featured Packages</span>
+                <h2 class="section-title">Popular Vehicle Services</h2>
+                <p class="section-desc">From routine oil changes to complete computer diagnostics, explore our popular automotive packages.</p>
+            </div>
+
+            <div id="home-services-container" class="services-grid">
+                <!-- Dynamically loaded via services.js -->
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="services.html" class="btn btn-outline-dark btn-lg">View All 8+ Specialized Services &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-us" style="padding: 5rem 0; background: #f8fafc;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Why Choose Us</span>
+                <h2 class="section-title">The GearShift Difference</h2>
+                <p class="section-desc">We combine automotive craftsmanship with digital transparency for an unmatched service experience.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-box-icon">👨‍🔧</div>
+                    <h3 style="font-size:1.2rem; margin-bottom:0.5rem;">ASE-Certified Mechanics</h3>
+                    <p style="font-size:0.9rem; margin:0;">Every vehicle is serviced by veteran technicians specialized in modern engine diagnostics and mechanics.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-box-icon">🏷️</div>
+                    <h3 style="font-size:1.2rem; margin-bottom:0.5rem;">100% Upfront Pricing</h3>
+                    <p style="font-size:0.9rem; margin:0;">Zero hidden surcharges or surprise billing. You review and approve the exact estimate before service starts.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-box-icon">🛡️</div>
+                    <h3 style="font-size:1.2rem; margin-bottom:0.5rem;">OEM Genuine Parts</h3>
+                    <p style="font-size:0.9rem; margin:0;">We exclusively use authentic original equipment manufacturer fluids, filters, and components with warranty.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-box-icon">📱</div>
+                    <h3 style="font-size:1.2rem; margin-bottom:0.5rem;">Live Status Tracking</h3>
+                    <p style="font-size:0.9rem; margin:0;">Track your vehicle through Pending, Confirmed, In Service, and Completed stages directly on your dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section style="padding: 5rem 0; background: #ffffff;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Simple Process</span>
+                <h2 class="section-title">How Service Booking Works</h2>
+                <p class="section-desc">Getting your vehicle serviced has never been easier or more reliable.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div style="font-size:2.5rem; margin:1rem 0;">🚗</div>
+                    <h3 style="font-size:1.15rem; margin-bottom:0.5rem;">Add Your Vehicle</h3>
+                    <p style="font-size:0.9rem; margin:0;">Save your vehicle details (car, bike, or SUV) with make, model, registration number, and fuel type.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div style="font-size:2.5rem; margin:1rem 0;">📅</div>
+                    <h3 style="font-size:1.15rem; margin-bottom:0.5rem;">Select Service & Slot</h3>
+                    <p style="font-size:0.9rem; margin:0;">Choose from our transparent service packages, pick your preferred appointment date, and choose a time.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div style="font-size:2.5rem; margin:1rem 0;">✨</div>
+                    <h3 style="font-size:1.15rem; margin-bottom:0.5rem;">Service & Track</h3>
+                    <p style="font-size:0.9rem; margin:0;">A dedicated mechanic performs the service. Follow updates online and pick up your vehicle ready to drive.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="brand-logo" style="margin-bottom:1rem;">
+                        <div class="logo-icon">⚙️</div>
+                        <div>Gear<span class="accent">Shift</span></div>
+                    </div>
+                    <p style="color:#94a3b8; font-size:0.9rem; margin-bottom:1rem;">
+                        Modern full-stack vehicle service and appointment management platform. Built with PHP, MySQL, and vanilla web technologies.
+                    </p>
+                    <p style="color:#64748b; font-size:0.85rem; margin:0;">
+                        📍 450 Automotive Boulevard, Metro City<br>
+                        📞 +1 (800) 555-GEAR (4327)<br>
+                        ✉️ support@gearshift.com
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">All Services</a></li>
+                        <li><a href="booking.html">Book Appointment</a></li>
+                        <li><a href="login.html">Customer Login</a></li>
+                        <li><a href="register.html">Create Account</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Customer Care</h4>
+                    <ul class="footer-links">
+                        <li><a href="dashboard.html">My Dashboard</a></li>
+                        <li><a href="vehicles.html">My Vehicles</a></li>
+                        <li><a href="my-bookings.html">Booking History</a></li>
+                        <li><a href="setup.php">System Setup Wizard</a></li>
+                        <li><a href="admin/dashboard.html">Admin Portal</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Service Center Hours</h4>
+                    <p style="font-size:0.88rem; color:#cbd5e1; margin-bottom:0.5rem;">
+                        <strong>Mon - Fri:</strong> 08:00 AM – 07:00 PM<br>
+                        <strong>Saturday:</strong> 09:00 AM – 06:00 PM<br>
+                        <strong>Sunday:</strong> 10:00 AM – 03:00 PM
+                    </p>
+                    <div style="margin-top:1.25rem;">
+                        <a href="booking.html" class="btn btn-accent btn-sm">Book Today</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p style="margin:0;">&copy; <span class="dynamic-year">2026</span> GearShift Automotive Care. Web Technology College Assignment.</p>
+                <div>
+                    <a href="setup.php" style="color:#94a3b8; margin-right:1rem; font-size:0.85rem;">⚙️ Setup / Health Check</a>
+                    <a href="admin/dashboard.html" style="color:#f97316; font-size:0.85rem;">🔒 Admin Login</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage My Vehicles | GearShift</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar">
+        <div class="container-fluid nav-container">
+            <a href="index.html" class="brand-logo">
+                <div class="logo-icon">⚙️</div>
+                <div>Gear<span class="accent">Shift</span></div>
+            </a>
+            <div class="nav-actions">
+                <span class="badge" style="background:rgba(255,255,255,0.1); color:#ffffff; font-size:0.85rem;">Customer Portal</span>
+                <button type="button" class="btn btn-outline btn-sm" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-profile">
+                <div class="profile-avatar">U</div>
+                <div class="profile-info">
+                    <h4 class="current-user-name">Loading...</h4>
+                    <span class="current-user-email">customer@gearshift.com</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li><a href="dashboard.html"><span class="nav-icon">📊</span> Dashboard</a></li>
+                <li><a href="vehicles.html" class="active"><span class="nav-icon">🚗</span> My Vehicles</a></li>
+                <li><a href="booking.html"><span class="nav-icon">⚡</span> Book Service</a></li>
+                <li><a href="my-bookings.html"><span class="nav-icon">📅</span> My Bookings</a></li>
+                <li><a href="services.html"><span class="nav-icon">🛠️</span> Explore Services</a></li>
+                <li><a href="index.html"><span class="nav-icon">🏠</span> Back to Home</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button type="button" class="btn btn-outline btn-sm btn-block" style="color:#f87171; border-color:#ef4444;" onclick="handleLogout()">
+                    🚪 Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="dashboard-topbar">
+                <div class="dashboard-welcome">
+                    <h2>My Registered Vehicles</h2>
+                    <p>Manage your automotive fleet to schedule routine maintenance and track services.</p>
+                </div>
+                <button type="button" class="btn btn-accent btn-sm" onclick="openAddVehicleModal()">
+                    + Add New Vehicle
+                </button>
+            </div>
+
+            <!-- Vehicles Cards Container -->
+            <div id="vehicles-container" class="vehicles-grid">
+                <!-- Dynamically populated via js/vehicles.js -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Add / Edit Vehicle Modal -->
+    <div id="vehicle-modal" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title" id="vehicle-modal-title">Add New Vehicle</h3>
+                <button type="button" class="modal-close" onclick="closeModal('vehicle-modal')">&times;</button>
+            </div>
+            <form id="vehicle-modal-form" onsubmit="handleVehicleForm(event)">
+                <input type="hidden" name="id" value="">
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label" for="v-number">Vehicle Registration Number <span class="required">*</span></label>
+                        <input type="text" id="v-number" name="vehicle_number" class="form-control" placeholder="e.g. MH-12-AB-1234 or NY-ABC-123" required style="font-family:monospace; text-transform:uppercase;">
+                        <span style="font-size:0.75rem; color:var(--text-light);">License plate identifier</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="v-type">Vehicle Type <span class="required">*</span></label>
+                            <select id="v-type" name="vehicle_type" class="form-control" required>
+                                <option value="Car">Car (Sedan/Hatchback)</option>
+                                <option value="SUV">SUV / Crossover</option>
+                                <option value="Bike">Motorbike / Scooter</option>
+                                <option value="Truck">Truck / Commercial</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="v-fuel">Fuel Type <span class="required">*</span></label>
+                            <select id="v-fuel" name="fuel_type" class="form-control" required>
+                                <option value="Petrol">Petrol</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Electric">Electric (EV)</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="CNG">CNG</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="v-brand">Brand / Make <span class="required">*</span></label>
+                            <input type="text" id="v-brand" name="brand" class="form-control" placeholder="e.g. Toyota, Honda, BMW" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="v-model">Model <span class="required">*</span></label>
+                            <input type="text" id="v-model" name="model" class="form-control" placeholder="e.g. Camry, Civic, X5" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="v-year">Manufacturing Year <span class="required">*</span></label>
+                        <input type="number" id="v-year" name="manufacturing_year" class="form-control" placeholder="e.g. 2022" min="1950" max="2027" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" onclick="closeModal('vehicle-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="vehicle-submit-btn">Save Vehicle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/vehicles.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await requireCustomerAuth();
+            if (user) {
+                loadVehicles();
+            }
+        });
+    </script>
+</body>
+</html>

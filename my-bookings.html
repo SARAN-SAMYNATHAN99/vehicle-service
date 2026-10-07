@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Service Bookings & Tracking | GearShift</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar">
+        <div class="container-fluid nav-container">
+            <a href="index.html" class="brand-logo">
+                <div class="logo-icon">⚙️</div>
+                <div>Gear<span class="accent">Shift</span></div>
+            </a>
+            <div class="nav-actions">
+                <span class="badge" style="background:rgba(255,255,255,0.1); color:#ffffff; font-size:0.85rem;">Customer Portal</span>
+                <button type="button" class="btn btn-outline btn-sm" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-profile">
+                <div class="profile-avatar">U</div>
+                <div class="profile-info">
+                    <h4 class="current-user-name">Loading...</h4>
+                    <span class="current-user-email">customer@gearshift.com</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li><a href="dashboard.html"><span class="nav-icon">📊</span> Dashboard</a></li>
+                <li><a href="vehicles.html"><span class="nav-icon">🚗</span> My Vehicles</a></li>
+                <li><a href="booking.html"><span class="nav-icon">⚡</span> Book Service</a></li>
+                <li><a href="my-bookings.html" class="active"><span class="nav-icon">📅</span> My Bookings</a></li>
+                <li><a href="services.html"><span class="nav-icon">🛠️</span> Explore Services</a></li>
+                <li><a href="index.html"><span class="nav-icon">🏠</span> Back to Home</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button type="button" class="btn btn-outline btn-sm btn-block" style="color:#f87171; border-color:#ef4444;" onclick="handleLogout()">
+                    🚪 Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="dashboard-topbar">
+                <div class="dashboard-welcome">
+                    <h2>My Service Bookings</h2>
+                    <p>Track live service progress, review past work orders, and manage appointments.</p>
+                </div>
+                <a href="booking.html" class="btn btn-accent btn-sm">
+                    ⚡ New Booking
+                </a>
+            </div>
+
+            <!-- Filter & Search Toolbar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="booking-status-filter" style="font-size:0.88rem; font-weight:600; color:var(--text-muted);">Status:</label>
+                    <select id="booking-status-filter" class="form-control" style="width:auto; padding:0.45rem 0.85rem;" onchange="filterAndRenderBookings()">
+                        <option value="all">All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="In Service">In Service</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <div class="search-input-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="booking-search-input" class="form-control" placeholder="Search by ID, vehicle, or service..." oninput="filterAndRenderBookings()">
+                </div>
+            </div>
+
+            <!-- Bookings Table Card -->
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Vehicle</th>
+                                <th>Service Package</th>
+                                <th>Appointment</th>
+                                <th>Assigned Mechanic</th>
+                                <th>Est. Price</th>
+                                <th>Status</th>
+                                <th style="text-align:right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookings-tbody">
+                            <!-- Populated via my-bookings.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div id="bookings-empty-state" class="empty-state" style="display:none;">
+                    <div class="empty-icon">📅</div>
+                    <h3 class="empty-title">No Bookings Found</h3>
+                    <p class="empty-desc">You don't have any bookings matching the current filter. Schedule a service to keep your vehicle running smoothly.</p>
+                    <a href="booking.html" class="btn btn-accent">⚡ Book a Service Now</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Booking Details Modal with Progress Timeline -->
+    <div id="booking-details-modal" class="modal-backdrop">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-header">
+                <h3 class="modal-title">Booking Details & Live Status</h3>
+                <button type="button" class="modal-close" onclick="closeModal('booking-details-modal')">&times;</button>
+            </div>
+            <div class="modal-body" id="details-modal-body">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" onclick="closeModal('booking-details-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Booking Confirmation Modal -->
+    <div id="cancel-booking-modal" class="modal-backdrop">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 class="modal-title" id="cancel-modal-title">Cancel Service Booking</h3>
+                <button type="button" class="modal-close" onclick="closeModal('cancel-booking-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="background:#fee2e2; border-left:4px solid #ef4444; padding:0.85rem 1rem; border-radius:4px; margin-bottom:1.25rem; color:#991b1b; font-size:0.9rem;">
+                    <strong>Are you sure you want to cancel this booking?</strong><br>
+                    Cancellation is only allowed while the booking is <em>Pending</em> or <em>Confirmed</em>.
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cancel-reason">Reason for Cancellation (Optional)</label>
+                    <textarea id="cancel-reason" class="form-control" placeholder="Let us know why you need to cancel or if you'd like to reschedule..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" onclick="closeModal('cancel-booking-modal')">Keep Appointment</button>
+                <button type="button" class="btn btn-danger" id="confirm-cancel-btn" onclick="submitBookingCancellation()">Yes, Cancel Appointment</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/my-bookings.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await requireCustomerAuth();
+            if (user) {
+                loadMyBookings();
+            }
+        });
+    </script>
+</body>
+</html>

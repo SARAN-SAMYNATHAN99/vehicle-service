@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | GearShift Automotive</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar" style="background:#090d16;">
+        <div class="container-fluid nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon" style="background:linear-gradient(135deg, #f97316 0%, #ea580c 100%);">⚙️</div>
+                <div>Gear<span class="accent">Shift</span> <span style="font-size:0.75rem; background:#ea580c; color:#ffffff; padding:2px 8px; border-radius:99px; font-weight:700;">ADMIN</span></div>
+            </a>
+            <div class="nav-actions">
+                <a href="../index.html" class="btn btn-outline btn-sm">View Website</a>
+                <button type="button" class="btn btn-danger btn-sm" onclick="handleLogout()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-profile">
+                <div class="profile-avatar admin-avatar">A</div>
+                <div class="profile-info">
+                    <h4 class="admin-name-display">Administrator</h4>
+                    <span style="color:#f97316;">System Admin</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-nav admin-nav">
+                <li><a href="dashboard.html" class="active"><span class="nav-icon">📊</span> Overview</a></li>
+                <li><a href="bookings.html"><span class="nav-icon">📅</span> Bookings & Dispatch</a></li>
+                <li><a href="customers.html"><span class="nav-icon">👥</span> Customers & Fleet</a></li>
+                <li><a href="services.html"><span class="nav-icon">🛠️</span> Service Packages</a></li>
+                <li><a href="mechanics.html"><span class="nav-icon">👨‍🔧</span> Mechanics Team</a></li>
+                <li><a href="../setup.php"><span class="nav-icon">⚙️</span> Database Diagnostics</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button type="button" class="btn btn-outline btn-sm btn-block" style="color:#f87171; border-color:#ef4444;" onclick="handleLogout()">
+                    🚪 Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="dashboard-topbar">
+                <div class="dashboard-welcome">
+                    <h2>Admin Command Center</h2>
+                    <p>Live workshop operations, customer fleet management, and mechanic scheduling.</p>
+                </div>
+                <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+                    <a href="bookings.html?status=Pending" class="btn btn-accent btn-sm">⏳ Review Pending Bookings</a>
+                    <a href="services.html" class="btn btn-outline-dark btn-sm">+ New Service</a>
+                </div>
+            </div>
+
+            <!-- Admin Statistics Cards (KPIs) -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-info">
+                        <h3 id="kpi-customers">0</h3>
+                        <p>Total Customers</p>
+                    </div>
+                    <div class="stat-card-icon stat-icon-blue">👥</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-info">
+                        <h3 id="kpi-vehicles">0</h3>
+                        <p>Total Vehicles</p>
+                    </div>
+                    <div class="stat-card-icon stat-icon-purple">🚗</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-info">
+                        <h3 id="kpi-bookings">0</h3>
+                        <p>Total Bookings</p>
+                    </div>
+                    <div class="stat-card-icon stat-icon-blue">📅</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-info">
+                        <h3 id="kpi-pending" style="color:var(--warning);">0</h3>
+                        <p>Pending Bookings</p>
+                    </div>
+                    <div class="stat-card-icon stat-icon-amber">⏳</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-info">
+                        <h3 id="kpi-completed" style="color:var(--success);">0</h3>
+                        <p>Completed Services</p>
+                    </div>
+                    <div class="stat-card-icon stat-icon-green">✅</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-info">
+                        <h3 id="kpi-services">0</h3>
+                        <p>Active Services</p>
+                    </div>
+                    <div class="stat-card-icon stat-icon-orange">🛠️</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-info">
+                        <h3 id="kpi-mechanics">0</h3>
+                        <p>Mechanics</p>
+                    </div>
+                    <div class="stat-card-icon stat-icon-blue">👨‍🔧</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-info">
+                        <h3 id="kpi-revenue" style="color:var(--success); font-size:1.6rem;">$0.00</h3>
+                        <p>Completed Revenue</p>
+                    </div>
+                    <div class="stat-card-icon stat-icon-green">💰</div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings Table -->
+            <div class="card" style="margin-top:1rem;">
+                <div class="card-header">
+                    <div>
+                        <h3 style="margin:0; font-size:1.15rem;">Recent Service Appointments</h3>
+                        <p style="margin:0; font-size:0.85rem; color:var(--text-muted);">Latest appointments booked through customer portal</p>
+                    </div>
+                    <a href="bookings.html" class="btn btn-outline-dark btn-sm">Manage All Bookings &rarr;</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Customer</th>
+                                <th>Vehicle</th>
+                                <th>Service</th>
+                                <th>Schedule</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-bookings-tbody">
+                            <tr>
+                                <td colspan="7" style="text-align:center; padding:2rem;">
+                                    <div class="spinner" style="border-top-color:var(--brand-blue);"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAdminDashboardStats();
+        });
+    </script>
+</body>
+</html>
